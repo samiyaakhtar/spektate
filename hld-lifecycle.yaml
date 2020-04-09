@@ -67,14 +67,19 @@ steps:
       git_push
 
       # Open PR via az repo cli
-      echo 'az extension add --name azure-devops'
-      az extension add --name azure-devops
+      # echo 'az extension add --name azure-devops'
+      # az extension add --name azure-devops
 
-      echo 'az repos pr create --description "Reconciling HLD with $(Build.Repository.Name)-$(Build.BuildNumber)." "PR created by: $(Build.DefinitionName) with buildId: $(Build.BuildId) and buildNumber: $(Build.BuildNumber)"'
-      az repos pr create --description "Reconciling HLD with $(Build.Repository.Name)-$(Build.BuildNumber)." "PR created by: $(Build.DefinitionName) with buildId: $(Build.BuildId) and buildNumber: $(Build.BuildNumber)"
+      # echo 'az repos pr create --description "Reconciling HLD with $(Build.Repository.Name)-$(Build.BuildNumber)." "PR created by: $(Build.DefinitionName) with buildId: $(Build.BuildId) and buildNumber: $(Build.BuildNumber)"'
+      # az repos pr create --description "Reconciling HLD with $(Build.Repository.Name)-$(Build.BuildNumber)." "PR created by: $(Build.DefinitionName) with buildId: $(Build.BuildId) and buildNumber: $(Build.BuildNumber)"
+
+      # Open a PR via hub cli 
+      curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.1
+      bin/hub pull-request -m "Reconciling HLD with $(Build.Repository.Name)-$(Build.BuildNumber)."  "PR created by: $(Build.DefinitionName) with buildId: $(Build.BuildId) and buildNumber: $(Build.BuildNumber)"
     displayName: "Download Fabrikate and SPK, Update HLD, Push changes, Open PR"
     env:
       ACCESS_TOKEN_SECRET: $(PAT)
       APP_REPO_URL: $(Build.Repository.Uri)
       AZURE_DEVOPS_EXT_PAT: $(PAT)
       REPO: $(HLD_REPO)
+      GITHUB_TOKEN: $(PAT)
