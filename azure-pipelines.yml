@@ -31,7 +31,7 @@ steps:
       repository: "spektate"
       command: "buildAndPush"
       Dockerfile: "**/Dockerfile"
-      tags: "spektate-$(Build.SourceBranchName)-$(Build.BuildId)"
+      tags: "spektate-test-$(Build.SourceBranchName)-$(Build.BuildId)"
     condition: ne(variables['Build.Reason'], 'PullRequest')
     displayName: Build docker image
 
