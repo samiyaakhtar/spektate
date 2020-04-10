@@ -27,27 +27,60 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
           - name: REACT_APP_STORAGE_ACCESS_KEY
-            value: {{ .Values.storageAccessKey }}
+            valueFrom:
+              secretKeyRef:
+                name: spektate-secrets
+                key: REACT_APP_STORAGE_ACCESS_KEY
           - name: REACT_APP_STORAGE_TABLE_NAME
-            value: {{ .Values.storageTableName }}
+            valueFrom:
+              configMapKeyRef:
+                name: spektate-config
+                key: REACT_APP_STORAGE_TABLE_NAME
           - name: REACT_APP_STORAGE_PARTITION_KEY
-            value: {{ .Values.storagePartitionKey }}
+            valueFrom:
+              configMapKeyRef:
+                name: spektate-config
+                key: REACT_APP_STORAGE_PARTITION_KEY
           - name: REACT_APP_STORAGE_ACCOUNT_NAME
-            value: {{ .Values.storageAccountName }}
+            valueFrom:
+              configMapKeyRef:
+                name: spektate-config
+                key: REACT_APP_STORAGE_ACCOUNT_NAME
           - name: REACT_APP_PIPELINE_PROJECT
-            value: {{ .Values.pipelineProject }}
+            valueFrom:
+              configMapKeyRef:
+                name: spektate-config
+                key: REACT_APP_PIPELINE_PROJECT
           - name: REACT_APP_PIPELINE_ORG
-            value: {{ .Values.pipelineOrg }}
+            valueFrom:
+              configMapKeyRef:
+                name: spektate-config
+                key: REACT_APP_PIPELINE_ORG
           - name: REACT_APP_PIPELINE_ACCESS_TOKEN
-            value: {{ .Values.pipelineAccessToken }}
+            valueFrom:
+              secretKeyRef:
+                name: spektate-secrets
+                key: REACT_APP_PIPELINE_ACCESS_TOKEN
           - name: REACT_APP_MANIFEST
-            value: {{ .Values.manifest }}
+            valueFrom:
+              configMapKeyRef:
+                name: spektate-config
+                key: REACT_APP_MANIFEST
           - name: REACT_APP_MANIFEST_ACCESS_TOKEN
-            value: {{ .Values.manifestAccessToken }}
+            valueFrom:
+              secretKeyRef:
+                name: spektate-secrets
+                key: REACT_APP_MANIFEST_ACCESS_TOKEN
           - name: REACT_APP_GITHUB_MANIFEST_USERNAME
-            value: {{ .Values.githubManifestUsername }}
+            valueFrom:
+              configMapKeyRef:
+                name: spektate-config
+                key: REACT_APP_GITHUB_MANIFEST_USERNAME
           - name: REACT_APP_SOURCE_REPO_ACCESS_TOKEN
-            value: {{ .Values.sourceRepoAccessToken }}
+            valueFrom:
+              secretKeyRef:
+                name: spektate-secrets
+                key: REACT_APP_SOURCE_REPO_ACCESS_TOKEN
           ports:
             - containerPort: {{ .Values.service.internalPort }}
           livenessProbe:
