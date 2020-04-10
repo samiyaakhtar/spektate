@@ -94,11 +94,11 @@ spec:
           resources:
 {{ toYaml .Values.resources | indent 12 }}
         volumeMounts:
-          - mountPath: /var/run/secrets/ 
-            name: spektate-volume
+          - name: spektate-volume
+            mountPath: /var/run/secrets/ 
             readOnly: true
-          - mountPath: /etc/config
-            name: spektate-config-volume
+          - name: spektate-config-volume
+            mountPath: /etc/config
     {{- if .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml .Values.nodeSelector | indent 8 }}
