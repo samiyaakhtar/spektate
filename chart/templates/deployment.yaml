@@ -93,20 +93,7 @@ spec:
               port: {{ .Values.service.internalPort }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
-        volumeMounts:
-          - name: spektate-volume
-            mountPath: /var/run/secrets/ 
-            readOnly: true
-          - name: spektate-config-volume
-            mountPath: /etc/config
     {{- if .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml .Values.nodeSelector | indent 8 }}
     {{- end }}
-      volumes:
-        - name: spektate-volume
-          secret:
-            secretName: spektate-secrets
-        - name: spektate-config-volume
-          configMap:
-            name: spektate-config
